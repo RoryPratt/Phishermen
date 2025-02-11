@@ -7,7 +7,6 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import tldextract
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
-#test
 
 df = pd.read_csv("phishing_site_urls.csv")[:100000]
 
