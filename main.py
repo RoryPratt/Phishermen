@@ -11,6 +11,7 @@ from sklearn.neural_network import MLPClassifier
 df = pd.read_csv("phishing_site_urls.csv")[:100000]
 
 if os.path.exists("processed_data.csv"):
+    df = pd.read_csv("processed_data.csv")
     print("File already preprocessed... ")
 
     print("Continuing to next step...")
@@ -39,7 +40,7 @@ tlds = set([tldextract.extract(i).suffix for i in df["URL"]])
 
 print("training model...")
 
-total = spc + list(tlds) + ["Length"]
+total = list(spc + list(tlds) + ["Length"])
 
 total.remove('')
 
