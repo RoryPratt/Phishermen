@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import os
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -9,34 +10,38 @@ from sklearn.neural_network import MLPClassifier
 
 df = pd.read_csv("phishing_site_urls.csv")[:100000]
 
-print("Processing...")
+if os.path.exists("processed_data.csv"):
+    print("File already preprocessed... ")
 
-df["Length"] = df["URL"].apply(len)
+    print("Continuing to next step...")
+else:
 
-df["Binary Label"] = [int(i=="good") for i in df["Label"]]
+    print("Processing...")
+
+    df["Length"] = df["URL"].apply(len)
+
+    df["Binary Label"] = [int(i=="good") for i in df["Label"]]
+
+    spc = ": / ? # [ ] @ ! $ & ' ( ) * + , ; =".split()
+    for x in spc:
+        df[x] = [i.count(x) for i in df["URL"]]
+
+    tlds = set([tldextract.extract(i).suffix for i in df["URL"]])
+    for tld in tlds:
+        df[tld] = [int(tldextract.extract(i).suffix==tld) for i in df["URL"]]
+
+    df.to_csv("processed_data.csv", index=False)
+
+    print("complete")
 
 spc = ": / ? # [ ] @ ! $ & ' ( ) * + , ; =".split()
-for x in spc:
-    df[x] = [i.count(x) for i in df["URL"]]
-
 tlds = set([tldextract.extract(i).suffix for i in df["URL"]])
-for tld in tlds:
-    df[tld] = [int(tldextract.extract(i).suffix==tld) for i in df["URL"]]
-
-df.to_csv("processed_data.csv", index=False)
-
-
-spc = ": / ? # [ ] @ ! $ & ' ( ) * + , ; =".split()
-tlds = set([tldextract.extract(i).suffix for i in df["URL"]])
-
-print("complete")
 
 print("training model...")
 
 total = spc + list(tlds) + ["Length"]
 
 total.remove('')
-
 
 x = df[total].values
 y = df["Binary Label"].values
