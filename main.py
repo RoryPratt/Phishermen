@@ -49,7 +49,7 @@ for x in num:
 for x in spc:
     df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
 
-df.to_csv("processed_data_2.csv")
+df.to_csv("processed_data_2.csv", index=False)
 
 print("training model...")
 
