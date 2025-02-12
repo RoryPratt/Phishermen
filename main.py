@@ -24,6 +24,11 @@ else:
     df["Binary Label"] = [int(i=="good") for i in df["Label"]]
 
     spc = ": / ? # [ ] @ ! $ & ' ( ) * + , ; =".split()
+    num = "1 2 3 4 5 6 7 8 9 0".split()
+    for x in num:
+        df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
+    for x in spc:
+        df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
     for x in spc:
         df[x] = [i.count(x) for i in df["URL"]]
 
@@ -37,6 +42,14 @@ else:
 
 spc = ": / ? # [ ] @ ! $ & ' ( ) * + , ; =".split()
 tlds = set([tldextract.extract(i).suffix for i in df["URL"]])
+
+num = "1 2 3 4 5 6 7 8 9 0".split()
+for x in num:
+    df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
+for x in spc:
+    df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
+
+df.to_csv("processed_data_2.csv")
 
 print("training model...")
 
