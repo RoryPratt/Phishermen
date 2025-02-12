@@ -26,9 +26,9 @@ else:
     spc = ": / ? # [ ] @ ! $ & ' ( ) * + , ; =".split()
     num = "1 2 3 4 5 6 7 8 9 0".split()
     for x in num:
-        df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
+        df[x + "_domain"] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
     for x in spc:
-        df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
+        df[x + "_domain"] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
     for x in spc:
         df[x] = [i.count(x) for i in df["URL"]]
 
@@ -45,15 +45,18 @@ tlds = set([tldextract.extract(i).suffix for i in df["URL"]])
 
 num = "1 2 3 4 5 6 7 8 9 0".split()
 for x in num:
-    df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
+    df[x + "_domain"] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
 for x in spc:
-    df[x] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
+    df[x + "_domain"] = [tldextract.extract(i).domain.count(x) for i in df["URL"]]
 
 df.to_csv("processed_data_2.csv", index=False)
 
 print("training model...")
 
-total = list(spc + list(tlds) + ["Length"])
+spcd = [i + "_domain" for i in spc]
+num = [i + "_domain" for i in num]
+
+total = list(spc + list(tlds) + ["Length"] + num + spcd)
 
 total.remove('')
 
