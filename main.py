@@ -10,7 +10,7 @@ from sklearn.neural_network import MLPClassifier
 
 df = pd.read_csv("phishing_site_urls.csv")[:100000]
 
-if os.path.exists("processed_data.csv"):
+if os.path.exists("processed_data_2.csv"):
     df = pd.read_csv("processed_data_2.csv")
     print("File already preprocessed... ")
 
