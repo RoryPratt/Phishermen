@@ -7,6 +7,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import tldextract
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import f1_score
 
 df = pd.read_csv("phishing_site_urls.csv")[:100000]
 
@@ -74,3 +75,9 @@ predictions = model.predict(x_test)
 
 accuracy = model.score(x_test, y_test) * 100
 print(f"Model Accuracy: {accuracy:.2f}")
+
+y_predict = MLPClassifier.predict(x_test)
+
+f1 = f1_score(y_test, y_predict)
+print("F1 Score:", f1)
+
