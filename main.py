@@ -76,7 +76,7 @@ predictions = model.predict(x_test)
 accuracy = model.score(x_test, y_test) * 100
 print(f"Model Accuracy: {accuracy:.2f}")
 
-y_predict = MLPClassifier.predict(x_test)
+y_predict = model.predict(x_test)
 
 f1 = f1_score(y_test, y_predict)
 print("F1 Score:", f1)
