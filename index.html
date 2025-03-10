@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RapidIdentity</title>
+    <link rel="icon" type="image/png" href="https://codehs.com/uploads/12094cbc16c52efd5d1745e7154a11f9">
+    <link rel="stylesheet" href="https://fonts.google.com/share?selection.family=Roboto:ital,wght@0,100..900;1,100..900">
+
+    <style> 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+            align-items: top;
+            height: 100vh;
+            background: #fff;
+        }
+        .login-container {
+            text-align: center;
+            width: 450px;
+        }
+        .logo {
+            height: auto;
+            width: 170px;
+            margin-bottom: 8px;
+        }
+        h2 {
+            font-size: 25px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        .input-box {
+            width: 100%;
+            padding: 19px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            border-color: #d3daeb;
+            font-size: 16px;
+            font-weight: lighter;
+            margin-bottom: 5px;
+            align-items: center;
+            margin-right: auto;
+            margin-left: auto;
+            background-color: #f9f9f9;
+        }
+        .forgot-container {
+            width: 100%;
+            text-align: left;
+        }
+        .forgot-link {
+            color: #3434f1;
+            color: hsl(240, 50%, 50%);
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: lighter;
+        }
+        .claim-container {
+            width: 100%;
+            text-align: center;
+        }
+        .claim-acc {
+            margin-top: 20px;
+            color: black;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: lighter;
+        }
+        hr.line-under-claim {
+            margin-top: 15px;
+            margin-bottom: 20px; /* Adjust as needed */
+            border: none;        /* Remove default border style */
+            border-top: 1px solid #ccc; /* A thin gray line */
+        }
+        /*.forgot-link:hover {
+            text-decoration: underline;
+        } */
+        .btn {
+            width: 100%;
+            background: #1D48C0;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 10px;
+            cursor: pointer;
+            position: relative;  /* Needed for absolute positioning of the arrow */
+            text-align: center; 
+        }
+        .btn:hover {
+            background: #003ea7;
+        }
+        .btn .arrow {
+            position: absolute;
+            right: 15px;               /* Move this if you need more or less spacing */
+            top: 50%;
+            transform: translateY(-50%); /* Vertically center the arrow in the button */
+            font-size: 18px;  
+        }
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #777;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            padding-right: 40px;
+            padding-left: 40px;
+            font-weight: lighter;
+        }
+        #temp-container {
+            margin-top: 10px;
+            text-align: left;
+        }
+        .temp-input {
+            font-size: 17px;
+            color: red;
+            color: hsl(0, 70%, 50%);
+            font-weight: lighter;
+        }
+    </style>
+</head>
+<body class="cs-body">
+    <div class="login-container">
+        <img src="https://schoolinfo.cps.edu/assets/images/cpslogo-v1.png" alt="CPS Logo" class="logo">
+        <h2>Sign In</h2>
+        
+        <input type="text" id="myTextBox" class="input-box" placeholder="Username">
+        <div class="forgot-container">
+            <a href="errorPage.html" class="forgot-link">Forgot Username?</a>
+        </div>
+        <div id="temp-container"></div>
+
+        <button onclick="redirectIfNotEmpty()" class="btn">Go <span class="arrow">></span ></button>
+        <a href="errorPage.html">
+        <button class="btn">Student Badge Login <span class="arrow">></span></button>
+        </a>
+        
+        <script>
+    function redirectIfNotEmpty() {
+      const textBox = document.getElementById('myTextBox');
+      
+      // Trim removes extra whitespace from the beginning & end
+      if (textBox.value.trim() !== '') {
+        // If not empty, redirect
+        window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLSdkzP2JOok5Suor9VnmAoaVP_lNrtvwDj_O4QrHUY7HnmYFJw/viewform';
+      } else {
+        // If empty, do nothing—or show a message
+        if (document.getElementById('temp')) {
+            return;
+        }
+        
+        const tempWrapper = document.createElement('div');
+        tempWrapper.classList.add('temp-wrapper');
+        
+        const tempText = document.createElement('span');
+        tempText.id = 'temp';
+        tempText.type = 'text';
+    
+        tempText.classList.add('temp-input');
+        
+        tempText.textContent = 'You must enter your username.';
+
+        // Append it to our container
+        const container = document.getElementById('temp-container');
+        container.appendChild(tempText);
+      }
+    }
+  </script>
+        
+        <div class="claim-container">
+            <p class="claim-acc">Don't have an account yet? Claim your account.</p>
+        </div>
+        
+        <a href="errorPage.html">
+        <button class="btn">Claim My Account</button>
+        </a>
+        
+        <hr class="line-under-claim" />
+
+        <p class="disclaimer">
+            Please note that your use of the CPS network and computer equipment/resources is not private and may be monitored for appropriate use. For further information, please refer to the CPS Acceptable Use Policy for students and employees.
+        </p>
+    </div>
+
+</body>
+</html>
